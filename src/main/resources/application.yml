@@ -1,0 +1,18 @@
+spring:
+  datasource:
+    url: jdbc:mysql://mysqldb/zherebukh?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC
+    username: root
+    password: armagedon2408
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    # Show or not log for each sql query
+    show-sql: true
+    hibernate:
+      # Hibernate ddl auto (validate, create, create-drop, update)
+      ddl-auto: update
+      # Naming strategy
+      naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
+
+server:
+  port: 8080
+

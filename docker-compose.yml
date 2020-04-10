@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+  mysqldb:
+    restart: always
+    container_name: mysqldb
+    image: mysql
+    environment:
+      MYSQL_DATABASE: zherebukh
+      MYSQL_ROOT_PASSWORD: armagedon2408
+      MYSQL_ROOT_HOST: '%'
+    volumes:
+      - ./database/mysql:/var/lib/mysql
+
+    ports:
+      - "6033:3306"
+    healthcheck:
+      test: "/usr/bin/mysql --user=root --password=armagedon2408--execute \"SHOW DATABASES;\""
+      interval: 2s
+      timeout: 20s
+      retries: 10
+  event-manager-app:
+    restart: on-failure
+    build: ./
+    expose:
+      - "8080"
+    ports:
+      - 8080:8080
+    environment:
+      WAIT_HOSTS: mysql:3306
+    depends_on:
+      - mysqldb
